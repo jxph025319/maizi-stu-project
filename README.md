@@ -30,3 +30,6 @@
 2、创建virtualenv环境
 3、创建数据库
 4、生产环境的搭建
+
+mzprj
+mzadmin

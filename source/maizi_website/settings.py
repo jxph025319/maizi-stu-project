@@ -86,11 +86,11 @@ WSGI_APPLICATION = 'maizi_website.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'maizidb',
-        'USER': 'root',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': 'mzprj',
+        'USER': 'mzadmin',
+        'PASSWORD': 'm6!$Hchen*skv',
+        'HOST': '192.168.8.126',
+        'PORT': '',
     }
 }
 
