@@ -1,6 +1,6 @@
 $(function(){
   $(document).on('click', function() {   
-    $('#hotkeyword').slideUp();
+    //$('#hotkeyword').slideUp();
     $('#keyword-group').slideUp();
     $('.show-card').removeClass('slideInDown').addClass('hidden');
   });
@@ -58,6 +58,32 @@ $(function(){
   $('#search').on({
     click: function(event) {
       event.stopPropagation();
+      $(".cf").children().remove();
+      var para={'skey': "null"};
+      $.get('api/keyword', para, function (data) {
+          data.forEach(function (x) {
+              $("ul[class='cf']").append("<li>"+ x + "</li>")
+          });
+
+          $('.cf>li').click(function(event) {
+            event.stopPropagation();
+            datalv = $(this).text();
+            var parali = {"skey": datalv};
+            $.get('api/search', parali, function (data) {
+              if(Array.isArray(data['couse'])){
+                data['couse'].forEach(function (x) {
+                    $("#course").append("<a href='' class='black'>"+x+"</a>")
+                });
+              }
+              if(Array.isArray(data['careercourse'])){
+                data['careercourse'].forEach(function (x) {
+                  $("#ccourse").append("<a href='' class="+x[1]+">"+x[0]+"</a>")
+              })};
+            }, 'json');
+            $('#hotkeyword').slideUp();
+            $('#keyword-group').slideDown();
+          });
+      } , 'json');
     },
     focus: function() {
       if($(this).val() == '') {
@@ -65,19 +91,42 @@ $(function(){
       }
     },
     keyup:function() {
-      $('#hotkeyword').slideUp();
-      $('#keyword-group').slideDown();
+      event.stopPropagation();
+      var vl = $("#search").val();
+      if(vl == ''){
+        vl = "null"
+      };
+      var para={'skey': vl};
+      $(".cf").children().remove();
+      $.get('api/keyword', para, function (data) {
+          data.forEach(function (x) {
+            $("ul[class='cf']").append("<li>"+x + "</li>")
+          });
+
+          $('.cf>li').click(function(event) {
+            event.stopPropagation();
+            datalv = $(this).text();
+            var parali = {"skey": datalv};
+            $.get('api/search', parali, function (data) {
+              if(Array.isArray(data['couse'])){
+                data['couse'].forEach(function (x) {
+                    $("#course").append("<a href='' class='black'>"+x+"</a>")
+                });
+              }
+              if(Array.isArray(data['careercourse'])){
+                data['careercourse'].forEach(function (x) {
+                  $("#ccourse").append("<a href='' class="+x[1]+">"+x[0]+"</a>")
+              })};
+            }, 'json');
+            $('#hotkeyword').slideUp();
+            $('#keyword-group').slideDown();
+          });
+      } , 'json');
     }
-  })
-  $('.search-dp').click(function(event) {
-    event.stopPropagation();
   });
-  $('#hotkeyword a').click(function(event) {
-    event.preventDefault();
-    $('#search').val($(this).text());
-    $('#hotkeyword').slideUp();
-    $('#keyword-group').slideDown();
-  });
+  // $('.search-dp').click(function(event) {
+  //   event.stopPropagation();
+  // });
 
 
   //点击收藏
@@ -151,4 +200,10 @@ function v5_popover_tpl(tpl_class,elem,popover_container,popover_placement,popov
     html: true
   });
 }
+function ajaxget(){
 
+}
+function keygrp(x){
+  $("#keyword-group a").remove()
+  $("#ccourse")
+}

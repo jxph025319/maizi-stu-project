@@ -7,8 +7,52 @@ Created on 2015/11/3
 Common模块View业务处理。
 """
 
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
+from .models import *
+import json
 
 # 首页
 def index(request):
     return render(request, "common/index.html", locals())
+
+
+# 关键字
+def keywds(request):
+    anslist = []
+    if request.GET['skey'] == 'null':
+        ls = RecommendKeywords.objects.all().values_list('name')
+    else:
+        ls = RecommendKeywords.objects.filter(name__icontains=request.GET['skey']).values_list('name')
+    for n in ls:
+        anslist.append(n[0])
+    return HttpResponse(json.dumps(anslist))
+
+
+# 课程搜索
+def searchkeys(request):
+    if request.GET.dict():
+        key = request.GET['skey']
+    else:
+        return HttpResponse("false")
+    ans = {}
+    ct = Course.objects.filter(name__icontains=key).values_list('name', )
+    cct = CareerCourse.objects.filter(name__icontains=key).values_list('name', 'course_color')
+    clist = []
+    cclist = []
+    if ct:
+        for n in ct:
+            clist.append(n[0])
+    if cct:
+        for n in cct:
+            cclist.append(n)
+    if clist:
+        ans['couse'] = list(clist)
+    else:
+        ans['couse'] = None
+    if cclist:
+        ans['careercourse'] = list(cclist)
+    else:
+        ans['careercourse'] = None
+    print(ans)
+    return HttpResponse(json.dumps(ans))
+
