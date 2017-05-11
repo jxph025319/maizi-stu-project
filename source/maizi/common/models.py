@@ -23,7 +23,7 @@ class Ad(models.Model):
     title = models.CharField(u'广告标题', max_length=50)
     description = models.CharField(u'广告描述', max_length=200)
     # 日期存放路径ad/年/月
-    image_url = models.ImageField(u'图片路径', upload_to='ad/%Y/%m')
+    image_url = models.ImageField(u'图片路径', upload_to='static/ad/%Y/%m')
     callback_url = models.URLField(u'回调url', null=True, blank=True)
     index = models.IntegerField(u'排列顺序(从小到大)', default=999)
 
@@ -75,7 +75,7 @@ class Links(models.Model):
 
     title =  models.CharField(u'标题', max_length=50)
     description = models.CharField(u'友情链接描述', max_length=200)
-    image_url = models.ImageField(u'图片路径', upload_to='links/%Y/%m',
+    image_url = models.ImageField(u'图片路径', upload_to='static/links/%Y/%m',
                                   null=True, blank=True)
     callback_url = models.URLField(u'回调url')
     is_pic = models.BooleanField(u'是否为图片', default=False)
@@ -141,8 +141,8 @@ class EmailVerifyRecord(models.Model):
     def __str__(self):
         return self.code
 
-class RecommendedReading(models.Model):
 
+class RecommendedReading(models.Model):
     '''
     首页推荐文章
     '''
@@ -200,6 +200,7 @@ class CareerCourse(models.Model):
     def __str__(self):
         return self.name
 
+
 class Stage(models.Model):
 
     '''
@@ -222,6 +223,7 @@ class Stage(models.Model):
     def __str__(self):
         return self.name
 
+
 class Course(models.Model):
 
     '''
@@ -240,7 +242,7 @@ class Course(models.Model):
     click_count = models.IntegerField(u'点击次数',default=0)
     is_novice = models.BooleanField(u'是否是新手课程', default=False)
     is_click = models.BooleanField(u'是否点击能进入课程', default=False)
-    index = models.IntegerField(u'课程顺序(从小到大)',default=999)
+    index = models.IntegerField(u'课程顺序(从小到大)', default=999)
     teacher = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=u'老师')
     stages = models.ForeignKey(Stage, blank=True, null=True, verbose_name=u'阶段')
     search_keywords = models.ManyToManyField(Keywords, verbose_name=u'小课程搜索关键词')
@@ -255,8 +257,8 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
-class Lesson(models.Model):
 
+class Lesson(models.Model):
     '''
     视频章节
     '''
@@ -282,8 +284,8 @@ class Lesson(models.Model):
     def __str__(self):
         return self.name
 
-class LessonResource(models.Model):
 
+class LessonResource(models.Model):
     '''
     章节资源
     '''
@@ -299,6 +301,7 @@ class LessonResource(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class CourseResource(models.Model):
 
@@ -317,6 +320,7 @@ class CourseResource(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class UserProfileManager(BaseUserManager):
 
@@ -347,6 +351,7 @@ class UserProfileManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(email, email, password, True, True,
                                  **extra_fields)
+
 
 class UserProfile(AbstractBaseUser,PermissionsMixin):
 
@@ -420,6 +425,7 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         return self.username
 
+
 class MyCourse(models.Model):
 
     '''
@@ -460,6 +466,7 @@ class MyFavorite(models.Model):
     def __str__(self):
         return str(self.id)
 
+
 class UserLearningLesson(models.Model):
 
     '''
@@ -480,6 +487,7 @@ class UserLearningLesson(models.Model):
     def __str__(self):
         return str(self.id)
 
+
 class UserUnlockStage(models.Model):
 
     '''
@@ -498,6 +506,7 @@ class UserUnlockStage(models.Model):
 
     def __str__(self):
         return str(self.id)
+
 
 class Class(models.Model):
 
@@ -527,6 +536,7 @@ class Class(models.Model):
     def __str__(self):
         return str(self.coding)
 
+
 class ClassStudents(models.Model):
 
     '''
@@ -549,6 +559,7 @@ class ClassStudents(models.Model):
     def __str__(self):
         return str(self.id)
 
+
 class Discuss(models.Model):
 
     '''
@@ -569,6 +580,7 @@ class Discuss(models.Model):
 
     def __str__(self):
         return str(self.id)
+
 
 class UserPurchase(models.Model):
 

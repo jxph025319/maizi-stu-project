@@ -104,7 +104,13 @@ http://www.maiziedu.com/images/index/gold_teacher_7.png
 http://www.maiziedu.com/images/index/gold_teacher_8.png
 
 
-
-
-
-
+web前端
+http://www.maiziedu.com/static/images/mz_ad/web-images/web-banner3.png
+UI设计
+http://www.maiziedu.com/static/images/mz_ad/ui-images/banner-t1.png
+产品经理
+http://www.maiziedu.com/static/images/mz_ad/pm-images/banner-t1.png
+python web 开发
+http://www.maiziedu.com/static/images/mz_ad/py-images/banner_py.png
+互联网运营
+http://www.maiziedu.com/static/images/mz_ad/op-images/banner-t1.png

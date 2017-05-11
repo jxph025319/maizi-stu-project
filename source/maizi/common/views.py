@@ -11,8 +11,19 @@ from django.shortcuts import render, HttpResponse
 from .models import *
 import json
 
+
 # 首页
 def index(request):
+    rslt = Course.objects.all()
+    nrslt = rslt.order_by('-date_publish').values('name', 'date_publish', 'image')
+    hrslt = rslt.order_by('-student_count').values('name', 'student_count', 'image')
+    prslt = rslt.order_by('-click_count').values('name', 'click_count', 'image')
+    adrslt = Ad.objects.all().values('title', 'image_url')
+    newsrslt = RecommendedReading.objects.all()
+    AVrslt = newsrslt.filter(reading_type='AV').values("title", 'url')
+    NWrslt = newsrslt.filter(reading_type='NW').values("title", 'url')
+    DCrslt = newsrslt.filter(reading_type='DC').values("title", 'url')
+    lkrslt = Links.objects.all().values('title', 'callback_url')
     return render(request, "common/index.html", locals())
 
 

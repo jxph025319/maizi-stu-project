@@ -64,10 +64,24 @@
           </div>
         </form>
         <div class="v5-topbar-login">
-          <div class="v5-topbar-login-off" style="display:none;">
-            <a href="#" data-toggle="modal" data-target="#loginModal">登录</a>
-          </div>
-          <div class="v5-topbar-login-on cf">
+    {% if request.user.is_authenticated %}
+        <div class="v5-topbar-login-off hidden">
+    {% else %}
+        <div class="v5-topbar-login-off">
+    {% endif %}
+      <a href="#" data-toggle="modal" data-target="#loginModal">登录</a>
+        </div>
+    {% if request.user.is_authenticated %}
+        <div class="v5-topbar-login-on cf ">
+            <dl>
+              <dt>
+                <a href="" class="dt-username"><span>{{ request.user.first_name }}, 你好</span><i class="v5-icon v5-icon-rd"></i></a>
+              </dt>
+            </dl>
+            <!--<a href="" class="dt-usermsg"><i class="v5-icon v5-icon-nomsg"></i></a>-->
+            <a href="" class="dt-usermsg"><i class="v5-icon v5-icon-havemsg"></i><em>3</em></a>
+    {% else %}
+            <div class="v5-topbar-login-on cf hidden">
             <dl>
               <dt>
                 <a href="" class="dt-username"><span>184545848</span><i class="v5-icon v5-icon-rd"></i></a>
@@ -75,7 +89,8 @@
             </dl>
             <!--<a href="" class="dt-usermsg"><i class="v5-icon v5-icon-nomsg"></i></a>-->
             <a href="" class="dt-usermsg"><i class="v5-icon v5-icon-havemsg"></i><em>3</em></a>
-          </div>
+    {% endif %}
+            </div>
         </div>
       </div>
       <!--搜索结果-->
@@ -134,6 +149,7 @@
 </div>
 
 <!--登录-->
+{% csrf_token %}
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -144,12 +160,12 @@
       <div class="modal-body">
         <section class="box-login v5-input-txt" id="box-login">
           <ul>
-            <li class="form-group has-error"><input type="text" class="form-control" placeholder="请输入邮箱账号/手机号"></li>
-            <li class="form-group"><input type="password" class="form-control" placeholder="请输入密码"></li>
+            <li class="form-group has-error"><input type="text" class="form-control" placeholder="请输入邮箱账号/手机号" id="loginemail"></li>
+            <li class="form-group"><input type="password" class="form-control" placeholder="请输入密码" id="loginpassword"></li>
           </ul>
           <p class="good-tips"><a href="#" data-toggle="modal" data-target="#forgetpswModal" id="btnForgetpsw" class="fr">忘记密码？</a>还没有账号？<a href="" data-toggle="modal" data-target="#registerModal" id="btnRegister">立即注册</a></p>
           <div>
-            <button type="button" class="btn btn-micv5 btn-block">登录</button>
+            <button type="button" class="btn btn-micv5 btn-block" id="btnLg">登录</button>
           </div>
           <div class="tips-error bg-danger">错误提示</div>
         </section>
@@ -221,11 +237,12 @@
 <!--登陆后-->
 <div class="show-card animated hidden">
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      {% if request.user.is_authenticated %}
     <tr>
       <td class="td-userhd"><span class="user-pic"><img src="test/15.jpg"></span></td>
       <td align="right" class="text-align-r">
-        <a href="" class="link-default">184545848</a>
-        <div class="user-email">184545848@mail.com</div>
+        <a href="" class="link-default">{{ request.user.last_name }}{{ request.user.first_name }}</a>
+        <div class="user-email">{{ request.user }}</div>
       </td>
     </tr>
     <tr>
@@ -234,6 +251,7 @@
     <tr>
       <td colspan="2"><a href="" class="link-cancel">注销</a></td>
     </tr>
+      {% endif %}
   </table>
 </div>
 
@@ -306,6 +324,21 @@ $(function() {
       autoReinitialise: true
     });
 });
+$(function () {
+
+$('#btnLg').click(function () {
+    var para= {"email":  $("#loginemail").val(), "passwd":  $("#loginemail").val(), "csrfmiddlewaretoken": $('input[name="csrfmiddlewaretoken"]').val()};
+    console.log(para);
+    $.post('users/login', para, function (data) {
+        if(data == 'login'){
+            console.log('login!')
+        }
+        });
+   }
+ )
+
+})
+
 </script>
 {% block custom_script %}{% endblock %}
 {% block popup %}{% endblock %}

@@ -8,6 +8,9 @@ users模块的url配置。
 """
 
 from django.conf.urls import patterns
+from django.conf.urls import include, url
+from users.views import userin
 
 urlpatterns = patterns('users.views',
+    url(r'^login/?$', userin, name='login'),
 )

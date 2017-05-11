@@ -27,30 +27,30 @@ $(function(){
     'shown.bs.modal': function (e) {
       $(this).find('.form-control').first().focus();
     }
-  })
+  });
   
   //登陆
   $('#btnLogin').on('click', function () {
     $('#registerModal').modal('hide');
-  })
+  });
   $('.show-card').on('click', function (event) {
     event.stopPropagation();
-  })
+  });
   $('.dt-username').on('click', function (event) {
     event.preventDefault();
     event.stopPropagation();
     $('.show-card').toggleClass('hidden slideInDown');
-  })
+  });
 
   //忘记密码
   $('#btnForgetpsw').on('click', function () {
     $('#loginModal').modal('hide');
-  })
+  });
 
   //注册
   $('#btnRegister').on('click', function () {
     $('#loginModal').modal('hide');
-  })
+  });
 
   //创建班级
   
@@ -200,10 +200,4 @@ function v5_popover_tpl(tpl_class,elem,popover_container,popover_placement,popov
     html: true
   });
 }
-function ajaxget(){
 
-}
-function keygrp(x){
-  $("#keyword-group a").remove()
-  $("#ccourse")
-}
