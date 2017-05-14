@@ -24,6 +24,7 @@ def index(request):
     NWrslt = newsrslt.filter(reading_type='NW').values("title", 'url')
     DCrslt = newsrslt.filter(reading_type='DC').values("title", 'url')
     lkrslt = Links.objects.all().values('title', 'callback_url')
+    msrslt = UserProfile.objects.exclude(avatar_url="static/avatar/default_big.png").exclude( avatar_url__exact="avatar/default_big.png").values("username", "avatar_url", 'avatar_alt')
     return render(request, "common/index.html", locals())
 
 
