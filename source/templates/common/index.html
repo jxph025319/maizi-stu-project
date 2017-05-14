@@ -1,5 +1,6 @@
 {% extends "common/base.html" %}
 {% load staticfiles %}
+{% load index_tags %}
 {% block title %}首页标题{% endblock %}
 {% block keywords%}首页关键词{% endblock %}
 {% block description%}首页描述{% endblock %}
@@ -11,15 +12,11 @@
     <div class="container">
       <div class="carousel-container">
         <div id="carousel">
+        {% for c in adrslt %}
           <div class="carousel-feature">
-            <a href="#"><img class="carousel-image" alt="Image Caption" src="{% static 'test/1.jpg' %}"></a>
+            <a href="#"><img class="carousel-image" style="background-color: black" alt={{ c.title }} src="{{ c.image_url }}"></a>
           </div>
-          <div class="carousel-feature">
-            <a href="#"><img class="carousel-image" alt="Image Caption" src="{% static 'test/1.jpg' %}"></a>
-          </div>
-          <div class="carousel-feature">
-            <a href="#"><img class="carousel-image" alt="Image Caption" src="{% static 'test/1.jpg' %}"></a>
-          </div>
+        {% endfor %}
         </div>
       </div>
     </div>
@@ -38,110 +35,25 @@
             <div class="v5-course-item tab-pane fade in active" id="new" data-holder="holdernew">
               <div class="page-item">
                 <ul class="row course-list-index">
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
+                {% for cont in nrslt %}
+                  {% if forloop.counter > 8 %}
+                    <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3 hidden">
+                  {% else %}
+                     <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3" >
+                  {% endif %}
+                  <a href="">
                       <dl>
                         <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
+                          <div><img src="{{ cont.image }}"></div>
                         </dt>
                         <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
+                          <span>{{ cont.name }}</span>
+                          <p>录制于{{ cont.date_publish|date:"Y-m-d H:i:s" }}</p>
                         </dd>
                       </dl>
                     </a>
                   </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
+                {% endfor %}
                 </ul>
               </div>
               <div class="page-bg-w">
@@ -163,110 +75,25 @@
             <div class="v5-course-item tab-pane fade" id="most" data-holder="holdermost">
             	<div class="page-item">
                 <ul class="row course-list-index">
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
+                  {% for cont in prslt %}
+                  {% if forloop.counter >= 9 %}
+                    <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3 hidden">
+                  {% else %}
+                     <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3" >
+                  {% endif %}
+                  <a href="">
                       <dl>
                         <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
+                          <div><img src="{{ cont.image }}"></div>
                         </dt>
                         <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
+                          <span>{{ cont.name }}</span>
+                          <p>点击{{ cont.click_count }}次播放</p>
                         </dd>
                       </dl>
                     </a>
                   </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
+                {% endfor %}
                 </ul>
               </div>
               <div class="page-bg-w">
@@ -288,110 +115,25 @@
             <div class="v5-course-item tab-pane fade" id="hot" data-holder="holderhot">
               <div class="page-item">
                 <ul class="row course-list-index">
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
+                  {% for cont in hrslt %}
+                      {% if forloop.counter >= 9 %}
+                        <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3 hidden">
+                      {% else %}
+                         <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3" >
+                      {% endif %}
+                  <a href="">
                       <dl>
                         <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
+                          <div><img src="{{ cont.image }}"></div>
                         </dt>
                         <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
+                          <span>{{ cont.name }}</span>
+                          <p>{{ cont.student_count }}人正在学习</p>
                         </dd>
                       </dl>
                     </a>
                   </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
-                  <li class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <a href="">
-                      <dl>
-                        <dt>
-                          <div><img src="{% static 'test/17.jpg' %}"></div>
-                        </dt>
-                        <dd>
-                          <span>IO8 APP开发快速入门</span>
-                          <p>1850人正在学习</p>
-                        </dd>
-                      </dl>
-                    </a>
-                  </li>
+                {% endfor %}
                 </ul>
               </div>
               <div class="page-bg-w">
@@ -424,42 +166,17 @@
         <a id="prev" class="prev" href="#"></a>
         <div class="tc-list-w">
           <ul id="foo" class="cf">
+          {% for n in msrslt %}
             <li>
               <dl>
-                <dt><a href="" style="border-left-color:#00A388;"><img src="{% static 'test/2.png' %}"></a></dt>
+                <dt><a href="" style="border-left-color:#00A388;"><img src="{{ n.avatar_url }}"></a></dt>
                 <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
+                  <h2>{{ n.username }}</h2>
+                  <h3>{{ n.avatar_alt }}</h3>
                 </dd>
               </dl>
             </li>
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#FF6038;"><img src="{% static 'test/17.jpg' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#00A388;"><img src="{% static 'test/2.png' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <dl>
-                <dt><a href="" style="border-left-color:#78BD8B;"><img src="{% static 'test/2.png' %}"></a></dt>
-                <dd>
-                  <h2>杨丰盛</h2>
-                  <h3>安卓框架联盟总架构师</h3>
-                </dd>
-              </dl>
-            </li>
+          {% endfor %}
           </ul>
         </div>
         <a id="next" class="next" href="#"></a>
@@ -474,13 +191,11 @@
       <div class="v5-read cf">
         <div class="v5-read-item">
           <div class="v5-read-list" style="background-color:#00A388;">
-            <h1>麦子百科</h1>
+            <h1>官方活动</h1>
             <ul>
-              <li><a href="" title="发现创新价值的科技媒体">发现创新价值的科技媒体</a></li>
-              <li><a href="" title="iOS 和 Android 之争可以终结了">iOS 和 Android 之争可以终结了</a></li>
-              <li><a href="" title="加码云计算市场，惠普近 1 亿收购云软件公司">加码云计算市场，惠普近 1 亿收购云软件公司</a></li>
-              <li><a href="" title="HTC 智能手表：传并未放弃，正努力改进">HTC 智能手表：传并未放弃，正努力改进</a></li>
-              <li><a href="" title="第一次！首批 Android app 上架 Chrome ">第一次！首批 Android app 上架 Chrome</a></li>
+            {% for l in AVrslt %}
+              <li><a href={{ l.url }} title={{ l.title }} class={% if forloop.counter > 5 %}"hidden"{% endif %}>{{ l.title }}</a></li>
+            {% endfor %}
             </ul>
           </div>
           <p><img src="{% static 'test/3.jpg' %}"></p>
@@ -488,25 +203,21 @@
         <div class="v5-read-item v5-read-item-mid">
           <p><img src="{% static 'test/4.jpg' %}"></p>
           <div class="v5-read-list" style="background-color:#FF6138;">
-            <h1>麦子百科</h1>
+            <h1>开发者资讯</h1>
             <ul>
-              <li><a href="" title="发现创新价值的科技媒体">发现创新价值的科技媒体</a></li>
-              <li><a href="" title="iOS 和 Android 之争可以终结了">iOS 和 Android 之争可以终结了</a></li>
-              <li><a href="" title="加码云计算市场，惠普近 1 亿收购云软件公司">加码云计算市场，惠普近 1 亿收购云软件公司</a></li>
-              <li><a href="" title="HTC 智能手表：传并未放弃，正努力改进">HTC 智能手表：传并未放弃，正努力改进</a></li>
-              <li><a href="" title="第一次！首批 Android app 上架 Chrome ">第一次！首批 Android app 上架 Chrome</a></li>
+            {% for l in NWrslt %}
+              <li><a href={{ l.url }} title={{ l.title }} class={% if forloop.counter > 5 %}"hidden"{% endif %}>{{ l.title }}</a></li>
+            {% endfor %}
             </ul>
           </div>
         </div>
         <div class="v5-read-item">
           <div class="v5-read-list" style="background-color:#00A388;">
-            <h1>麦子百科</h1>
+            <h1>技术交流</h1>
             <ul>
-              <li><a href="" title="发现创新价值的科技媒体">发现创新价值的科技媒体</a></li>
-              <li><a href="" title="iOS 和 Android 之争可以终结了">iOS 和 Android 之争可以终结了</a></li>
-              <li><a href="" title="加码云计算市场，惠普近 1 亿收购云软件公司">加码云计算市场，惠普近 1 亿收购云软件公司</a></li>
-              <li><a href="" title="HTC 智能手表：传并未放弃，正努力改进">HTC 智能手表：传并未放弃，正努力改进</a></li>
-              <li><a href="" title="第一次！首批 Android app 上架 Chrome ">第一次！首批 Android app 上架 Chrome</a></li>
+            {% for l in DCrslt %}
+              <li><a href={{ l.url }} title={{ l.title }} class={% if forloop.counter > 5 %}"hidden"{% endif %}>{{ l.title }}</a></li>
+            {% endfor %}
             </ul>
           </div>
           <p><img src="{% static 'test/5.jpg' %}"></p>
@@ -547,38 +258,17 @@
             <dt>友情链接</dt>
             <dd>
               <ul>
-                <li class="cf">
-                  <a href="">网易云课堂</a><span>|</span>
-                  <a href="">腾讯课堂</a><span>|</span>
-                  <a href="">微信营销</a><span>|</span>
-                  <a href="">文档转换网</a><span>|</span>
-                  <a href="">浪曦IT视频</a><span>|</span>
-                  <a href="">自主学习网</a><span>|</span>
-                  <a href="">网易云课堂</a><span>|</span>
-                  <a href="">腾讯课堂</a><span>|</span>
-                  <a href="">微信营销</a><span>|</span>
-                  <a href="">浪曦IT视频</a><span>|</span>
-                  <a href="">自主学习网</a><span>|</span>
-                  <a href="">网易云课堂</a><span>|</span>
-                  <a href="">腾讯课堂</a><span>|</span>
-                  <a href="">微信营销</a><span>|</span>
-                </li>
-                <li class="cf">
-                  <a href="">网易云课堂</a><span>|</span>
-                  <a href="">腾讯课堂</a><span>|</span>
-                  <a href="">微信营销</a><span>|</span>
-                  <a href="">文档转换网</a><span>|</span>
-                  <a href="">浪曦IT视频</a><span>|</span>
-                  <a href="">自主学习网</a><span>|</span>
-                  <a href="">网易云课堂</a><span>|</span>
-                  <a href="">腾讯课堂</a><span>|</span>
-                  <a href="">微信营销</a><span>|</span>
-                  <a href="">浪曦IT视频</a><span>|</span>
-                  <a href="">自主学习网</a><span>|</span>
-                  <a href="">网易云课堂</a><span>|</span>
-                  <a href="">腾讯课堂</a><span>|</span>
-                  <a href="">微信营销</a><span>|</span>
-                </li>
+                  <li class="cf">
+                  {% with num=lkrslt|length|half flag=0 %}
+                      {% for foo in lkrslt %}
+                          {% if forloop.counter0 == num  %}
+                              </li>
+                              <li class="cf">
+                          {% endif %}
+                        <a href={{ foo.callback_url }}>{{ foo.title }}</a><span>|</span>
+                      {% endfor %}
+                  {% endwith %}
+                  </li>
               </ul>
             </dd>
           </dl>

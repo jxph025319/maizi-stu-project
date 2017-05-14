@@ -23,7 +23,7 @@ class Ad(models.Model):
     title = models.CharField(u'广告标题', max_length=50)
     description = models.CharField(u'广告描述', max_length=200)
     # 日期存放路径ad/年/月
-    image_url = models.ImageField(u'图片路径', upload_to='ad/%Y/%m')
+    image_url = models.ImageField(u'图片路径', upload_to='static/ad/%Y/%m')
     callback_url = models.URLField(u'回调url', null=True, blank=True)
     index = models.IntegerField(u'排列顺序(从小到大)', default=999)
 
@@ -33,7 +33,7 @@ class Ad(models.Model):
         ordering = ['index', 'id']
         db_table = 'ad'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 class MyMessage(models.Model):
@@ -63,8 +63,9 @@ class MyMessage(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'my_message'
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.id)
+
 
 class Links(models.Model):
 
@@ -74,7 +75,7 @@ class Links(models.Model):
 
     title =  models.CharField(u'标题', max_length=50)
     description = models.CharField(u'友情链接描述', max_length=200)
-    image_url = models.ImageField(u'图片路径', upload_to='links/%Y/%m',
+    image_url = models.ImageField(u'图片路径', upload_to='static/links/%Y/%m',
                                   null=True, blank=True)
     callback_url = models.URLField(u'回调url')
     is_pic = models.BooleanField(u'是否为图片', default=False)
@@ -84,7 +85,7 @@ class Links(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'links'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 class Keywords(models.Model):
@@ -100,7 +101,7 @@ class Keywords(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'keywords'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class RecommendKeywords(models.Model):
@@ -116,7 +117,7 @@ class RecommendKeywords(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'recommend_keywords'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class EmailVerifyRecord(models.Model):
@@ -137,11 +138,11 @@ class EmailVerifyRecord(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'email_verify_record'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.code
 
-class RecommendedReading(models.Model):
 
+class RecommendedReading(models.Model):
     '''
     首页推荐文章
     '''
@@ -166,7 +167,7 @@ class RecommendedReading(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'recommended_reading'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 class CareerCourse(models.Model):
@@ -177,7 +178,7 @@ class CareerCourse(models.Model):
 
     name = models.CharField(u'职业课程名称', max_length=50)
     short_name = models.CharField(u'职业课程英文名称简写', max_length=10, unique=True)
-    image = models.ImageField(u'课程小图标', upload_to='course/%Y/%m')
+    image = models.ImageField(u'课程小图标', upload_to='static/course/%Y/%m')
     description = models.TextField(u'文字介绍')
     student_count = models.IntegerField(u'学习人数', default=0)
     market_page_url = models.URLField(u'营销页面地址', blank=True, null=True)
@@ -196,8 +197,9 @@ class CareerCourse(models.Model):
         ordering = ['-id']
         db_table = 'career_course'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+
 
 class Stage(models.Model):
 
@@ -218,8 +220,9 @@ class Stage(models.Model):
         ordering = ['index', 'id']
         db_table = 'stage'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+
 
 class Course(models.Model):
 
@@ -228,7 +231,7 @@ class Course(models.Model):
     '''
 
     name = models.CharField(u'课程名称',max_length=50)
-    image = models.ImageField(u'课程封面', upload_to='course/%Y/%m')
+    image = models.ImageField(u'课程封面', upload_to='static/course/%Y/%m')
     description = models.TextField(u'课程描述')
     is_active = models.BooleanField(u'有效性', default=True)
     date_publish = models.DateTimeField(u'发布时间', auto_now_add=True)
@@ -239,7 +242,7 @@ class Course(models.Model):
     click_count = models.IntegerField(u'点击次数',default=0)
     is_novice = models.BooleanField(u'是否是新手课程', default=False)
     is_click = models.BooleanField(u'是否点击能进入课程', default=False)
-    index = models.IntegerField(u'课程顺序(从小到大)',default=999)
+    index = models.IntegerField(u'课程顺序(从小到大)', default=999)
     teacher = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=u'老师')
     stages = models.ForeignKey(Stage, blank=True, null=True, verbose_name=u'阶段')
     search_keywords = models.ManyToManyField(Keywords, verbose_name=u'小课程搜索关键词')
@@ -251,11 +254,11 @@ class Course(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'course'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
-class Lesson(models.Model):
 
+class Lesson(models.Model):
     '''
     视频章节
     '''
@@ -278,11 +281,11 @@ class Lesson(models.Model):
         ordering = ['index', 'id']
         db_table = 'lesson'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
-class LessonResource(models.Model):
 
+class LessonResource(models.Model):
     '''
     章节资源
     '''
@@ -296,8 +299,9 @@ class LessonResource(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'lesson_resource'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+
 
 class CourseResource(models.Model):
 
@@ -314,8 +318,9 @@ class CourseResource(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'course_resource'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
+
 
 class UserProfileManager(BaseUserManager):
 
@@ -347,6 +352,7 @@ class UserProfileManager(BaseUserManager):
         return self._create_user(email, email, password, True, True,
                                  **extra_fields)
 
+
 class UserProfile(AbstractBaseUser,PermissionsMixin):
 
     '''
@@ -360,9 +366,9 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     is_staff = models.BooleanField(u'职员状态', default=False, help_text='是否能够登录管理后台')
     is_active = models.BooleanField(u'是否激活', default=True, help_text='用户是否被激活，未激活则不能使用')
     date_joined = models.DateTimeField(u'创建日期', auto_now_add=True)
-    avatar_url = models.ImageField(upload_to='avatar/%Y/%m', default='avatar/default_big.png', max_length=200, blank=True, null=True, verbose_name=u'头像220x220')
-    avatar_middle_thumbnall = models.ImageField(upload_to='avatar/%Y/%m', default='avatar/default_middle.png', max_length=200, blank=True, null=True, verbose_name=u'头像104x104')
-    avatar_small_thumbnall = models.ImageField(upload_to='avatar/%Y/%m', default='avatar/default_small.png', max_length=200, blank=True, null=True, verbose_name=u'头像70x70')
+    avatar_url = models.ImageField(upload_to='static/avatar/%Y/%m', default='static/avatar/default_big.png', max_length=200, blank=True, null=True, verbose_name=u'头像220x220')
+    avatar_middle_thumbnall = models.ImageField(upload_to='static/avatar/%Y/%m', default='static/avatar/default_middle.png', max_length=200, blank=True, null=True, verbose_name=u'头像104x104')
+    avatar_small_thumbnall = models.ImageField(upload_to='static/avatar/%Y/%m', default='static/avatar/default_small.png', max_length=200, blank=True, null=True, verbose_name=u'头像70x70')
     avatar_alt = models.CharField(u'头像ALT说明', max_length=100, blank=True, null=True)
     qq = models.CharField(u'QQ号码', max_length=20, blank=True, null=True)
     mobile = models.CharField(u'手机号码', max_length=11, blank=True, null=True, unique=True)
@@ -416,8 +422,9 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
             return True
         return False
 
-    def __unicode__(self):
+    def __str__(self):
         return self.username
+
 
 class MyCourse(models.Model):
 
@@ -436,7 +443,7 @@ class MyCourse(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'my_course'
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.id)
 
 
@@ -456,8 +463,9 @@ class MyFavorite(models.Model):
         unique_together = (('user', 'course'),)
         db_table = 'my_favorite'
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.id)
+
 
 class UserLearningLesson(models.Model):
 
@@ -476,8 +484,9 @@ class UserLearningLesson(models.Model):
         unique_together = (('user', 'lesson'),)
         db_table = 'user_learning_lesson'
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.id)
+
 
 class UserUnlockStage(models.Model):
 
@@ -495,8 +504,9 @@ class UserUnlockStage(models.Model):
         unique_together = (('user', 'stage'),)
         db_table = 'user_unlock_stage'
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.id)
+
 
 class Class(models.Model):
 
@@ -523,8 +533,9 @@ class Class(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'class'
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.coding)
+
 
 class ClassStudents(models.Model):
 
@@ -545,8 +556,9 @@ class ClassStudents(models.Model):
         ordering = ['-study_point']
         db_table = 'class_students'
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.id)
+
 
 class Discuss(models.Model):
 
@@ -566,8 +578,9 @@ class Discuss(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'discuss'
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.id)
+
 
 class UserPurchase(models.Model):
 
@@ -595,5 +608,5 @@ class UserPurchase(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'user_purchase'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.order_no
